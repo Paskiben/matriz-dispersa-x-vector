@@ -20,8 +20,8 @@ int main(int argc, char** argv) {
     srand(s);
     long nelem = n*n;
 
-    //Se cran las matrices a multiplicar y en la que se guardara el resultado
-    float *md, *V, *CI, *RI, *R, rowCont=0;
+    //md = matriz dispersa (contiene la data de la matriz), v = vector a calcular, CI = Column Index, RI = Row Index, R = respuesta.
+    float *Md, *V, *CI, *RI, *R, rowCont=0;
     Md = new float[nelem]; V = new float[nelem];
     CI = new float[nelem]; RI = new float[n]; R = new float[n];
 
@@ -31,15 +31,30 @@ int main(int argc, char** argv) {
     printf("inicializando...."); fflush(stdout);
     #pragma omp parallel for
     for(int i=0; i<n; ++i){
-        RI[i]=rowCont;
-        R[i]=0;
+        //RI[i]= rowCont;
+        R[i]= 0;
         V[i] = rand();
         for(int j=0; j<n; ++j){
-            if(rand()/RAND_MAX<d)
+            if(rand()/RAND_MAX>d)
+                Md[i*n + j]=0;
             else{
                 Md[i*n + j] = rand();
-                CI[i*n + j] = i
+                //CI[i*n + j] = i;
                 ++rowCont;
+            }
+        }
+    }
+    float *CSR = 0;
+    CSR = new float[rowCont];
+    CI = new float[rowCont];
+    int k = 0;
+    #pragma omp parallel for collapse(2)
+    for(int i = 0; i < n; i++){
+        for(int j=0; j<n; ++j){
+            if(Md[i*n + j] != 0){
+                CSR[k] = Md[i*n + j];
+                CI[k] = i*n + j;
+                k++;
             }
         }
     }
@@ -87,25 +102,3 @@ int main(int argc, char** argv) {
 	printf("ok: %f secs (%f TFLOPS)\n", time, tflops); fflush(stdout);
 	print_mat(C, n, "MATRIX C");
 }
-
-void multiplicarMatrizDispersaCPU(float& *md, float& *V, float& *CI, float& *RI, float& *R,long n){
-    #pragma omp parallel for 
-    for(int i=0;i<n;++i){
-        s
-    }
-}
-
-void
-      push_back(const value_type& __x)
-      {
-	if (this->_M_impl._M_finish != this->_M_impl._M_end_of_storage)
-	  {
-	    _GLIBCXX_ASAN_ANNOTATE_GROW(1);
-	    _Alloc_traits::construct(this->_M_impl, this->_M_impl._M_finish,
-				     __x);
-	    ++this->_M_impl._M_finish;
-	    _GLIBCXX_ASAN_ANNOTATE_GREW(1);
-	  }
-	else
-	  _M_realloc_insert(end(), __x);
-      }
