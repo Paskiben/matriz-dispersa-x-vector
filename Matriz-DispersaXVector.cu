@@ -43,6 +43,8 @@ int main(int argc, char** argv) {
             }
         }
     }
+    
+
     double t2 = omp_get_wtime();
     printf("ok: %f secs\n", t2-t1); fflush(stdout);
 
