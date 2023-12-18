@@ -16,6 +16,7 @@ int main(int argc, char** argv) {
     float s = atoi(argv[4]);
     int nt = atoi(argv[5]);
     omp_set_num_threads(nt);
+    srand(s);
 
     //Se cran las matrices a multiplicar y en la que se guardara el resultado
     vector<vector<int>> matrizDispersa(n, vector<int>(n,0));
