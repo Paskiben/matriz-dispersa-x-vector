@@ -50,6 +50,7 @@ int main(int argc, char** argv) {
     int k = 0;
     #pragma omp parallel for collapse(2)
     for(int i = 0; i < n; i++){
+        RI[i]= k;
         for(int j=0; j<n; ++j){
             if(Md[i*n + j] != 0){
                 CSR[k] = Md[i*n + j];
