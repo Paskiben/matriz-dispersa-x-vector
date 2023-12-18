@@ -88,3 +88,10 @@ int main(int argc, char** argv) {
 	printf("ok: %f secs (%f TFLOPS)\n", time, tflops); fflush(stdout);
 	print_mat(C, n, "MATRIX C");
 }
+
+void multiplicarMatrizDispersaCPU(float& *md, float& *V, float& *CI, float& *RI, float& *R,long n){
+    #pragma omp parallel for 
+    for(int i=0;i<n;++i){
+        s
+    }
+}
