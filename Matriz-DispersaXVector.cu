@@ -3,7 +3,6 @@
 #include <cuda.h>
 #define BSIZE 1024
 #define PRINT 0
-using namespace std;
 
 void mulMdCPU(float *&CSR, float *&V, float *&CI, float *&RI, float *&answer, long n);
 __global__ void mulMdGPU(float *CSR, float *V, float *CI, float *RI, float *answer, long int n);
