@@ -23,7 +23,7 @@ void printVector(float *V, long n){
 
 int main(int argc, char** argv) {
     if(argc <6){
-        fputs_unlocked("Debe ejecutarse como ./prog <n> <d> <m> <s> <nt>", stdout);
+        fputs_unlocked("Debe ejecutarse como ./prog <n> <d> <m> <s> <nt>\n", stdout);
         exit(EXIT_FAILURE);
     }
 
