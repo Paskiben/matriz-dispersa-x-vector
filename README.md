@@ -10,7 +10,7 @@ RI = Row Index, CSR  = Vector de los valores no nulos de la matriz, CI = Column 
 
 # Ejecucion:
 Matriz-DispersaXVector.cu debe ejecutarse como bin/prog <n> <d> <m> <s> <nt>
-pruebas.cpp debe ejecutarse como bin/./prog <n> <d> <m> <s> <nt>
+pruebas.cpp debe ejecutarse como bin/prog <n> <d> <m> <s> <nt>
 Ej: bin/prog $((2**16)) 0.3 0 2 4
 
 Donde:
