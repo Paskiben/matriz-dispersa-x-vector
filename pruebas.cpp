@@ -22,11 +22,13 @@ int main(int argc, char** argv) {
         for(int i=DENSITIL ;i<=DENSITIR ;++i){
             string callMd = string()+"bin/./progd "+ argv[1]+" "+to_string((float)i/10)+" "+argv[3]+" "+argv[4]+" "+argv[5];
             string callMc = string()+"bin/./progc "+ argv[1]+" "+to_string((float)i/10)+" "+argv[4]+" "+argv[5];
+            printf("\nMatriz dispersa dispersion = %.1f :\n", (float)i/10);
+            fputs_unlocked("Matriz dispersa CSR\n", stdout);
             for(int j=0;j<3;++j){
-                printf("\nMatriz dispersa dispersion = %.1f :\n", (float)i/10);
-                fputs_unlocked("Matriz dispersa CSR\n", stdout);
                 system(callMd.c_str());
-                fputs_unlocked("\nMatriz dispersa Clasic\n", stdout);
+            }
+            fputs_unlocked("\nMatriz dispersa Clasic\n", stdout);
+            for(int k=0;k<3;++k){
                 system(callMc.c_str());
             }
         }
