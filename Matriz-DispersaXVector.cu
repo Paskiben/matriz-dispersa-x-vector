@@ -45,10 +45,9 @@ int main(int argc, char** argv) {
     double t1 = omp_get_wtime();
     //Inicialisacion de las matrices
     printf("inicializando...."); fflush(stdout);
-    fputs_unlocked("\n", stdout);
-    //#pragma omp parallel for
+
     for(int i=0; i<n; ++i){
-        V[i] = rand(); 
+        V[i] = rand();
         for(int j=0; j<n; ++j){
             if((float)rand()/RAND_MAX<=d){
                 Md[i*n + j] = rand();
@@ -56,6 +55,7 @@ int main(int argc, char** argv) {
             }
         }
     }
+
     if(PRINT){
         printMatrix(Md, n);
         fputs_unlocked("\n", stdout);
@@ -65,7 +65,8 @@ int main(int argc, char** argv) {
     float *CSR = new float[nelem], *CI = new float[nelem],
     *dCSR, *dCI;
     int k = 0;
-    //#pragma omp parallel for
+    
+    #pragma omp parallel for
     for(int i = 0; i < n; i++){
         RI[i]= k;
         for(int j=0; j<n; ++j){
