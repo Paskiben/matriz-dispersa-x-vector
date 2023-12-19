@@ -49,7 +49,7 @@ int main(int argc, char** argv) {
         for(int i=NL;i<=NR;++i){
             string callMdCPU = string()+"bin/./progd $((2**"+ to_string(i) +")) "+argv[2]+" "+to_string(0)+" "+argv[4]+" "+to_string(1);
             string callMdGPU = string()+"bin/./progd $((2**"+ to_string(i) +")) "+argv[2]+" "+to_string(1)+" "+argv[4]+" "+to_string(1);
-            printf("Matriz dispersa n= 2**%d\n", i);
+            printf("\nMatriz dispersa n= 2**%d\n", i);
             for(int j=0;j<3;++j){
                 system(callMdCPU.c_str());
                 system(callMdGPU.c_str());
