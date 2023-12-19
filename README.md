@@ -2,7 +2,9 @@
 Tarea 2, INFO-188 Programación en paradigma funcional y paralelo
 
 # Descripcion
-Este programa realiza una multiplicacion ente una matriz dispersa nxn y un vector nx1 de forma paralela, teniendo modo para GPU y CPU
+Matriz-DispersaXVector.cu: Este programa realiza una multiplicacion ente una matriz dispersa nxn y un vector nx1 de forma paralela, teniendo modo para GPU y CPU
+
+pruebas.cpp: Se encarga de realizar pruebas entre CPU con un thread y varios threads, CPU y GPU, ademas del metodo clasico de multiplicacion vs la version con CSR
 
 Compressed Sparse Row (CSR).
 Md = matriz dispersa con valores nulos (contiene la data de la matriz), V = vector a multiiplicar,
