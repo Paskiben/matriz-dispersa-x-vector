@@ -1,28 +1,25 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <omp.h>
 #include <cuda.h>
-#include <iostream>
 #define BSIZE 1024
-#define PRINT 1
+#define PRINT 0
 using namespace std;
 
 void mulMdCPU(float *&CSR, float *&V, float *&CI, float *&RI, float *&answer, long n);
-
 __global__ void mulMdGPU(float *CSR, float *V, float *CI, float *RI, float *answer, long int n);
 
 void printMatrix(float *&M, long n){
     for(int i = 0; i < n; i++){
         for(int j=0; j<n; ++j)
-            cout << M[i*n + j]<< " ";
-        cout << endl;
+            printf("%d ", M[i*n + j]);
+        fputs_unlocked("\n", stdout);
     }
 }
 
 void printVector(float *&M, long n){
     for(int i=0; i<n; ++i)
-            cout << M[i] << " ";
-    cout << endl<<endl;
+        printf("%d ", M[i]);
+    fputs_unlocked("\n", stdout);
 }
 
 int main(int argc, char** argv) {
@@ -49,7 +46,7 @@ int main(int argc, char** argv) {
     double t1 = omp_get_wtime();
     //Inicialisacion de las matrices
     printf("inicializando...."); fflush(stdout);
-    cout << endl;
+    fputs_unlocked("\n", stdout);
     int x, y;
     //#pragma omp parallel for
     for(int i=0; i<n; ++i){
@@ -140,10 +137,10 @@ void mulMdCPU(float *&CSR, float *&V, float *&CI, float *&RI, float *&answer, lo
 }
 
 __global__ void mulMdGPU(float *CSR, float *V, float *CI, float *RI, float *answer, long int n) {
-    int row = blockIdx.x * blockDim.x + threadIdx.x;
-    if (row < (n)) {
-        for (int i = RI[row]; i < RI[row + 1]; ++i) {
-            answer[row] += CSR[i] * V[(int)CI[i]];
+    int tidx = (blockDim.x * blockIdx.x)  + threadIdx.x;
+    if (tidx < (n)) {
+        for (int i = RI[tidx]; i < RI[tidx + 1]; ++i) {
+            answer[tidx] += CSR[i] * V[(int)CI[i]];
         }
     }
 }
