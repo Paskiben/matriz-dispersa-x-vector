@@ -47,15 +47,12 @@ int main(int argc, char** argv) {
     //Inicialisacion de las matrices
     printf("inicializando...."); fflush(stdout);
     fputs_unlocked("\n", stdout);
-    int x, y;
     //#pragma omp parallel for
     for(int i=0; i<n; ++i){
-        x = rand()%10;
-        V[i] = x; 
+        V[i] = rand(); 
         for(int j=0; j<n; ++j){
             if((float)rand()/RAND_MAX<=d){
-                y = rand()%10 + 1;
-                Md[i*n + j] = y;
+                Md[i*n + j] = rand();
                 nelem++;
             }
         }
