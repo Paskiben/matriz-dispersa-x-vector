@@ -4,8 +4,8 @@
 #define BSIZE 1024
 #define PRINT 0
 
-void mulMdCPU(float *&CSR, float *&V, float *&CI, float *&RI, float *&answer, long n);
-__global__ void mulMdGPU(float *CSR, float *V, float *CI, float *RI, float *answer, long int n);
+void mulMdCPU(const float *CSR, const float *V,const float *CI, const float *RI, float *answer, const long int n);
+__global__ void mulMdGPU(const float *CSR, const float *V, const float *CI, const float *RI, float *answer, const long int n);
 
 void printMatrix(float *&M, long n){
     for(int i = 0; i < n; i++){
@@ -125,7 +125,7 @@ int main(int argc, char** argv) {
     delete(CSR); delete(V); delete(CI); delete(RI); delete(answer);
 }
 
-void mulMdCPU(float *&CSR, float *&V, float *&CI, float *&RI, float *&answer, long int n) {
+void mulMdCPU(const float *CSR, const float *V,const float *CI, const float *RI, float *answer, const long int n) {
     #pragma omp parallel for
     for(int i=0;i<n+1;++i){
         for(int j=RI[i];j<RI[i+1];++j)
@@ -133,7 +133,7 @@ void mulMdCPU(float *&CSR, float *&V, float *&CI, float *&RI, float *&answer, lo
     }
 }
 
-__global__ void mulMdGPU(float *CSR, float *V, float *CI, float *RI, float *answer, long int n) {
+__global__ void mulMdGPU(const float *CSR, const float *V, const float *CI, const float *RI, float *answer, const long int n) {
     int tidx = (blockDim.x * blockIdx.x)  + threadIdx.x;
     if (tidx < (n)) {
         for (int i = RI[tidx]; i < RI[tidx + 1]; ++i) {
