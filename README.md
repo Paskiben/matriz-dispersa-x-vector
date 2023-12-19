@@ -8,7 +8,7 @@ Md = matriz dispersa con valores nulos (contiene la data de la matriz), V = vect
 RI = Row Index, CSR  = Vector de los valores no nulos de la matriz, CI = Column Index
 
 Ejecucion:
-    Matriz-DispersaXVector.cu debe ejecutarse como bin/prog <n> <d> <m> <s> <nt>
+    Matriz-DispersaXVector.cu debe ejecutarse como bin/prog <n> <d> <m> <s> nt
     pruebas.cpp debe ejecutarse como bin/./prog <n> <d> <m> <s> <nt>
     Ej: bin/prog $((2**16)) 0.3 0 2 4
 
