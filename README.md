@@ -3,6 +3,7 @@ Tarea 2, INFO-188 Programación en paradigma funcional y paralelo
 
 Compressed Sparse Row (CSR).
 El punto de densidad en el cual la matriz dispersa comienza a ocupar mas memoria es en 0.5
+El punto de densidad en el cual el calculo de la matriz dispersa CSR comienza a ser igual de eficiente que el clasico es ~0.8
 
 bin/./prog $((2**16)) 0.3 0 2 10
 
