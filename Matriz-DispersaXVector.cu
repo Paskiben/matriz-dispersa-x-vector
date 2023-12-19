@@ -7,17 +7,17 @@
 void mulMdCPU(const float *CSR, const float *V,const float *CI, const float *RI, float *answer, const long int n);
 __global__ void mulMdGPU(const float *CSR, const float *V, const float *CI, const float *RI, float *answer, const long int n);
 
-void printMatrix(float *&M, long n){
+void printMatrix(float *M, long int n){
     for(int i = 0; i < n; i++){
         for(int j=0; j<n; ++j)
-            printf("%d ", M[i*n + j]);
+            printf("%.0f ", M[i*n + j]);
         fputs_unlocked("\n", stdout);
     }
 }
 
-void printVector(float *&M, long n){
+void printVector(float *V, long n){
     for(int i=0; i<n; ++i)
-        printf("%d ", M[i]);
+        printf("%.0f ", V[i]);
     fputs_unlocked("\n", stdout);
 }
 
@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
     srand(s);
 
     //md = matriz dispersa (contiene la data de la matriz), v = vector a calcular, CI = Column Index, RI = Row Index, R = respuesta.
-    float *Md = new float[n*n]{}, *V = new float[n],
+    float *Md = new float[n*n]{0}, *V = new float[n],
     *RI = new float[n+1], *answer = new float[n]{},
     *dV, *dRI, *danswer;
     long int nelem=0;
@@ -47,16 +47,17 @@ int main(int argc, char** argv) {
     printf("inicializando...."); fflush(stdout);
 
     for(int i=0; i<n; ++i){
-        V[i] = rand();
+        V[i] = rand()%10;
         for(int j=0; j<n; ++j){
             if((float)rand()/RAND_MAX<=d){
-                Md[i*n + j] = rand();
+                Md[i*n + j] = rand()%10;
                 nelem++;
             }
         }
     }
 
     if(PRINT){
+        fputs_unlocked("\n", stdout);
         printMatrix(Md, n);
         fputs_unlocked("\n", stdout);
         printVector(V, n);
@@ -66,7 +67,6 @@ int main(int argc, char** argv) {
     *dCSR, *dCI;
     int k = 0;
     
-    #pragma omp parallel for
     for(int i = 0; i < n; i++){
         RI[i]= k;
         for(int j=0; j<n; ++j){
@@ -128,16 +128,19 @@ int main(int argc, char** argv) {
 void mulMdCPU(const float *CSR, const float *V,const float *CI, const float *RI, float *answer, const long int n) {
     #pragma omp parallel for
     for(int i=0;i<n+1;++i){
+        float tempAnswer=0.0f;
         for(int j=RI[i];j<RI[i+1];++j)
-            answer[i] += CSR[j]*V[(int)CI[j]];
+            tempAnswer += CSR[j]*V[(int)CI[j]];
+        answer[i] = tempAnswer;
     }
 }
 
 __global__ void mulMdGPU(const float *CSR, const float *V, const float *CI, const float *RI, float *answer, const long int n) {
     int tidx = (blockDim.x * blockIdx.x)  + threadIdx.x;
     if (tidx < (n)) {
-        for (int i = RI[tidx]; i < RI[tidx + 1]; ++i) {
-            answer[tidx] += CSR[i] * V[(int)CI[i]];
-        }
+        float tempAnswer=0.0f;
+        for (int i = RI[tidx]; i < RI[tidx + 1]; ++i)
+            tempAnswer+= CSR[i] * V[(int)CI[i]];
+        answer[tidx] = tempAnswer;
     }
 }

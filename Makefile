@@ -1,6 +1,6 @@
 .PHONY: all clean
 CXX = nvcc
-CXXFLAGS = -O3 -Xcompiler -fopenmp
+CXXFLAGS = -O3 -std=c++20 -Xcompiler -fopenmp
 EXECUTABLE = bin/prog
 
 all:
