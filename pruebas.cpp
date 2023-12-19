@@ -3,12 +3,12 @@
 #include <string>
 using namespace std;
 #define MODE 0
+#define DENSITIL 1
+#define DENSITIR 10
 #define NUM_THREADL 11
 #define NUM_THREADR 20
 #define NL 6
 #define NR 16
-#define DENSITIL 1
-#define DENSITIR 10
 
 
 int main(int argc, char** argv) {
