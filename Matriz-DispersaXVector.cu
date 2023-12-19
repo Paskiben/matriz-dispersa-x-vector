@@ -127,6 +127,8 @@ int main(int argc, char** argv) {
 	float tflops = ((float)n*n*(2*n)/time)/(1e12);
 	printf("ok: %f secs (%f TFLOPS)\n", time, tflops); fflush(stdout);
     if(PRINT){fputs_unlocked("\n", stdout); printVector(answer, n);}
+    
+    delete(CSR); delete(V); delete(CI); delete(RI); delete(answer);
 }
 
 void mulMdCPU(float *&CSR, float *&V, float *&CI, float *&RI, float *&answer, long int n) {
