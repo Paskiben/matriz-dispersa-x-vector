@@ -18,18 +18,21 @@ int main(int argc, char** argv) {
 
     // //Speedup CPU 1 vs CPU x
     // for(int i=1;i<=10;++i){
-    //     string callMd = string()+"bin/./progd "+ argv[1]+" "+argv[2]+" "+argv[3]+" "+argv[4]+" "+i;
+    //     string callMd = string()+"bin/./progd "+ argv[1]+" "+argv[2]+" "+argv[3]+" "+argv[4]+" "+ to_string(i);
     //     printf("Matriz dispersa %d threads:\n", i);
-    //     for(int j=0;j<3;++j){
+    //     for(int j=0;j<3;++j)
     //         system(callMd.c_str());
     // }
 
     // //peedup CPU 1 vs GPU
     // for(int i=8;i<=16;++i){
-    //     string callMd = string()+"bin/./progd $((2**"+ i +")) "+argv[2]+" "+argv[3]+" "+argv[4]+" "+argv[5];
-    //     printf("Matriz dispersa %d threads:\n", i);
+    //     string callMdCPU = string()+"bin/./progd $((2**"+ to_string(i) +")) "+argv[2]+" "+to_string(0)+" "+argv[4]+" "+to_string(1);
+    //     string callMdGPU = string()+"bin/./progd $((2**"+ to_string(i) +")) "+argv[2]+" "+to_string(1)+" "+argv[4]+" "+to_string(1);
+    //     printf("Matriz dispersa n= 2**%d\n", i);
     //     for(int j=0;j<3;++j){
-    //         system(callMd.c_str());
+    //         system(callMdCPU.c_str());
+    //         system(callMdGPU.c_str());
+    //     }
     // }
 
 }
