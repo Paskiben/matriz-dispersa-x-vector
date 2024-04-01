@@ -4,7 +4,7 @@
 # EXECUTABLED = bin/progd
 # $(CXX) $(CXXFLAGS) Matriz-DispersaXVector.cu -o $(EXECUTABLED)
 CC = g++
-CCFLAGS = -std=c++23 -O4 -g3 -Wall -Wextra -Wdouble-promotion -fopenmp
+CCFLAGS = -std=c++23 -Ofast -g3 -Wall -Wextra -Wdouble-promotion -fopenmp
 EXECUTABLEC = bin/progc
 EXECUTABLE = bin/prog
 
