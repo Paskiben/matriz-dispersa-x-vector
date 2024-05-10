@@ -40,8 +40,8 @@ int main(int argc, char** argv){
     matMul(Md, V, answer, n);
     auto end = chrono::high_resolution_clock::now();
     auto elapsed = chrono::duration_cast<chrono::microseconds>(end - start);
-    float tflops = ((float)n*n*(2*n)/float(elapsed.count()))/(1e6);
-    printf("ok: %f secs (%f TFLOPS)\n", (float)elapsed.count()/1e6, tflops); fflush(stdout);
+    float tflops = ((float)n*n*(2*n)/float(elapsed.count()))/(1e6f);
+    printf("ok: %f secs (%f TFLOPS)\n", (float)elapsed.count()/1e6f, tflops); fflush(stdout);
 }
 
 void matMul(const float *Md, const float *V, float *answer, const long int n) {
