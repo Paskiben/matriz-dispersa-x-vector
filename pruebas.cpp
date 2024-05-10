@@ -22,14 +22,14 @@ int main(int argc, char** argv) {
         for(int i=DENSITIL ;i<=DENSITIR ;++i){
             string callMd = string()+"bin/./progd "+ argv[1]+" "+to_string((float)i/10)+" "+argv[3]+" "+argv[4]+" "+argv[5];
             string callMc = string()+"bin/./progc "+ argv[1]+" "+to_string((float)i/10)+" "+argv[4]+" "+argv[5];
-            printf("\nMatriz dispersa con dispersion = %.1f :\n", (float)i/10);
+            printf("\nMatriz dispersa con dispersion = %.1f :\n", (double)i/10);
             fputs_unlocked("Matriz dispersa CSR\n", stdout);
             for(int j=0;j<3;++j){
-                system(callMd.c_str());
+                if(system(callMd.c_str()) == -1) return EXIT_FAILURE;
             }
             fputs_unlocked("\nMatriz dispersa Clasic\n", stdout);
             for(int k=0;k<3;++k){
-                system(callMc.c_str());
+                if(system(callMc.c_str()) == -1) return EXIT_FAILURE;
             }
         }
     }
@@ -40,7 +40,7 @@ int main(int argc, char** argv) {
             string callMd = string()+"bin/./progd "+ argv[1]+" "+argv[2]+" "+to_string(0)+" "+argv[4]+" "+ to_string(i);
             printf("\nMatriz dispersa %d threads:\n", i);
             for(int j=0;j<3;++j)
-                system(callMd.c_str());
+                if(system(callMd.c_str()) == -1) return EXIT_FAILURE;
         }
     }
 
@@ -52,11 +52,11 @@ int main(int argc, char** argv) {
             printf("\nMatriz dispersa n= 2**%d\n", i);
             fputs_unlocked("Matriz dispersa CPU\n", stdout);
             for(int j=0;j<3;++j){
-                system(callMdCPU.c_str());
+                if(system(callMdCPU.c_str()) == -1) return EXIT_FAILURE;
             }
             fputs_unlocked("Matriz dispersa GPU\n", stdout);
             for(int j=0;j<3;++j){
-                system(callMdGPU.c_str());
+                if(system(callMdGPU.c_str()) == -1) return EXIT_FAILURE;
             }
         }
     }
