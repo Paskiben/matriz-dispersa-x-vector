@@ -13,11 +13,11 @@ int main(int argc, char** argv){
     }
 
     long int n = atoi(argv[1]);
-    float d = atof(argv[2]);
-    float s = atof(argv[3]);
+    float d = (float)atof(argv[2]);
+    float s = (float)atof(argv[3]);
     int nt = atoi(argv[4]);
     omp_set_num_threads(nt);
-    srand(s);
+    srand((uint)s);
 
     float *Md = new float[n*n]{}, *V = new float[n],
     *answer = new float[n]{};
@@ -25,10 +25,10 @@ int main(int argc, char** argv){
     double t1 = omp_get_wtime();
     printf("inicializando...."); fflush(stdout);
     for(int i=0; i<n; ++i){
-        V[i] = rand()%10;
+        V[i] = (float)(rand()%10);
         for(int j=0; j<n; ++j){
-            if((float)rand()/RAND_MAX<=d){
-                Md[i*n + j] = rand()%10;
+            if((float)rand()/(float)RAND_MAX<=d){
+                Md[i*n + j] = (float)(rand()%10);
             }
         }
     }
@@ -40,8 +40,8 @@ int main(int argc, char** argv){
     matMul(Md, V, answer, n);
     auto end = chrono::high_resolution_clock::now();
     auto elapsed = chrono::duration_cast<chrono::microseconds>(end - start);
-    double tflops = (n*n*(2*n)/elapsed.count())/1e6;
-    printf("ok: %f secs (%f TFLOPS)\n", elapsed.count()/1e6, tflops); fflush(stdout);
+    double tflops = (double)(n*n*(2*n)/elapsed.count())/1e6;
+    printf("ok: %f secs (%f TFLOPS)\n", (double)elapsed.count()/1e6, tflops); fflush(stdout);
 }
 
 void matMul(const float *Md, const float *V, float *answer, const long int n) {
